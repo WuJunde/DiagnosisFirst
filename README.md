@@ -10,3 +10,4 @@ Train Segmentation:
 python train.py -net transunet -mod seg -exp_name repro_seg -base_weights 'weights of diagnosis network'
 
 See cfg.py for more avaliable parameters
+
