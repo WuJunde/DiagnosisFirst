@@ -89,11 +89,6 @@ transform_test_seg = transforms.Compose([
     transforms.ToTensor(),
     transforms.Resize((args.image_size, args.image_size)),
 ])
-# train_dataset = GsegDataset(args,args.data_path, ['BinRushed','MESSIDOR'], transform = transform_train, transform_seg = transform_train_seg, mode='Train')
-# val_dataset = GsegDataset(args,args.data_path, ['Magrabia'], transform = transform_test, transform_seg = transform_test_seg, mode = 'Val')
-# nice_train_loader = DataLoader(train_dataset, batch_size=args.b, shuffle=True, num_workers=8, pin_memory=True)
-# nice_test_loader = DataLoader(val_dataset, batch_size=args.b, shuffle=False, num_workers=8, pin_memory=True, drop_last=True)
-# '''data end'''
 
 '''oracle'''
 train_dataset = OracleDataset(args, args.data_path, transform = transform_train, transform_seg = transform_train_seg, mode = 'Train')
