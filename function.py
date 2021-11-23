@@ -40,13 +40,14 @@ def train_cls(args, net: nn.Module, optimizer, train_loader,
     predictions = []
     loss_class = 0
     loss_map = 0
-    for batch_index, (images, ave_mask, ones, labels_seg, labels_class, name) in enumerate(tqdm(train_loader, total=total_number, desc=f'Epoch {epoch}', unit='img')):
+    for batch_index, (images, labels_seg, one_seg,  ones, masks, labels_class, name) in enumerate(tqdm(train_loader, total=total_number, desc=f'Epoch {epoch}', unit='img')):
 
         labels_class = labels_class.to(dtype = torch.float32,device = GPUdevice)
         labels_seg = labels_seg.to(device = GPUdevice)
+        one_seg = one_seg.to(dtype = mask_type, device = GPUdevice)
         images = images.to(device = GPUdevice)
 
-        images = torch.cat((images, labels_seg), 1)
+        images = torch.cat((images, one_seg), 1)
         outputs_class = net(images)
 
         optimizer.zero_grad()
@@ -95,19 +96,19 @@ def train_seg(args, trans_net: nn.Module, trans_optimizer, train_loader,
     mask_type = torch.float32
 
     with tqdm(total=len(train_loader), desc=f'Epoch {epoch}', unit='img') as pbar:
-        for batch_index, (images, labels_seg, ones, masks, labels_class, name) in enumerate(train_loader):
+        for batch_index, (images, labels_seg, one_seg,  ones, masks, labels_class, name) in enumerate(train_loader):
             labels_class = labels_class.to(dtype = mask_type,device = GPUdevice)
             labels_seg = labels_seg.to(dtype = mask_type, device = GPUdevice)
+            one_seg = one_seg.to(dtype = mask_type, device = GPUdevice)
             imgs = images.to(dtype = mask_type, device = GPUdevice)
 
             '''init'''
             if hard:
                 labels_seg = (labels_seg > 0.5).float()
-                #true_mask_ave = cons_tensor(true_mask_ave)
 
             '''Train'''
-            mask_pred, coarse = trans_net(imgs)
-            loss = criterion_G(mask_pred, labels_seg) + criterion_G(coarse, labels_seg)
+            mask_pred, coarse= trans_net(imgs)
+            loss = criterion_G(mask_pred, labels_seg) + criterion_G(coarse, one_seg)
             pbar.set_postfix(**{'loss (batch)': loss.item()})
 
             epoch_loss += loss.item()
@@ -133,7 +134,7 @@ def First_Order_Adversary(args,net:nn.Module,oracle_loader):
     groundtruths = []
     predictions = []
     ind = 0
-    for imgs, mask, ones, masks, labels, name in tqdm(oracle_loader, total=total_number, unit='img'):
+    for imgs, mask, one_seg, ones, masks, labels, name in tqdm(oracle_loader, total=total_number, unit='img'):
 
         obj = objectives.channel('labels', 0)
         true_masks = torch.cat(ones,1).to(dtype = torch.float32,device = GPUdevice) #b,7,w,h

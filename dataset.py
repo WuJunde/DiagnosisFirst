@@ -355,13 +355,13 @@ class OracleDataset(Dataset):
 
         # return Image.fromarray(disc.astype(np.uint8)),Image.fromarray(cup.astype(np.uint8))
         return img_nd
-    
+
     @classmethod
     def allone(cls, disc,cup):
         disc = np.array(disc) / 255
         cup = np.array(cup) / 255
         return  np.clip(disc * 0.5 + cup,0,1)
-    
+
     @classmethod
     def reversecolor(cls,seg):
         seg = 255 - np.array(seg)
@@ -378,9 +378,10 @@ class OracleDataset(Dataset):
 
         img = Image.open(img_path).convert('RGB')
         mask = Image.open(msk_path).convert('L')
+        maskone = mask
         # ave_mask = self.reversecolor(self.to2(ave_mask))
         mask = self.to2(mask)
-        
+
         label = int(self.label_list[index])
 
         multiname = self.mmask_list[index].split('.')[0].split('_')[0]
@@ -401,7 +402,7 @@ class OracleDataset(Dataset):
                 disc = self.transform_seg(disc)
                 cup = self.transform_seg(cup)
                 one = self.transform_seg(one)
-            
+
             Mask = torch.cat((disc,cup),0)
 
             masks.append(Mask)
@@ -412,8 +413,6 @@ class OracleDataset(Dataset):
 
         if self.transform_seg:
             mask = self.transform_seg(mask)
+            maskone = self.transform_seg(maskone)
 
-        return img, mask, ones, masks, label, name.split('/')[-1]
-
-    
-    
+        return img, mask, maskone, ones, masks, label, name.split('/')[-1]
