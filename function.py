@@ -106,8 +106,8 @@ def train_seg(args, trans_net: nn.Module, trans_optimizer, train_loader,
                 #true_mask_ave = cons_tensor(true_mask_ave)
 
             '''Train'''
-            mask_pred= trans_net(imgs)
-            loss = criterion_G(mask_pred, labels_seg)
+            mask_pred, coarse = trans_net(imgs)
+            loss = criterion_G(mask_pred, labels_seg) + criterion_G(coarse, labels_seg)
             pbar.set_postfix(**{'loss (batch)': loss.item()})
 
             epoch_loss += loss.item()
@@ -150,8 +150,7 @@ def First_Order_Adversary(args,net:nn.Module,oracle_loader):
         ]
         map_param_f = lambda: mmapping(256,img = imgs, seg = true_masks, batch=args.b, device = GPUdevice)
         opt = lambda params: torch.optim.Adam(params, 5e-3)
-        
+
         imgs = elimination(net, obj, param_f=map_param_f, optimizer = opt, transforms=[], show_inline=True, image_name=name, label = int(labels[0]))
         '''end'''
     return 0
-

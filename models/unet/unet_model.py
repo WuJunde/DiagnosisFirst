@@ -143,7 +143,7 @@ class TransUNet(nn.Module):
         else:
             raise Exception('The Resnet Model only accept resnet18, resnet34, resnet50,'
                             'resnet101 and resnet152')
-        
+
         '''define the stage for goinnet giving'''
         last_chs = (256,256,256,256)
         num_chs = (256, 256, 256, 256)
@@ -231,7 +231,7 @@ class TransUNet(nn.Module):
         output = self.up5(x)
         '''~~~ 0: ENDs ~~~'''
 
-        return output
+        return output,coarse
 
     def close(self):
         for sf in self.sfs: sf.remove()
@@ -351,7 +351,7 @@ class ConvLSTMCell(nn.Module):
 
 class GoinNet(nn.Module):
     def __init__(self,
-                args, 
+                args,
                 resnet,
                 in_chans=3,
                 inplanes=64,
@@ -416,7 +416,7 @@ class GoinNet(nn.Module):
                     last_enc=has_last_encoder and i == len(num_layers) - 1)
                         )
         self.stages = nn.ModuleList(stage_list)
-            
+
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 n = m.kernel_size[0] * m.kernel_size[1] * m.out_channels
