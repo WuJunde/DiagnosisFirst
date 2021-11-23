@@ -11,7 +11,6 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 from einops import rearrange, repeat
 from einops.layers.torch import Rearrange
-from vit_pytorch.vit import Transformer
 import math
 
 
@@ -118,10 +117,6 @@ class TransUNet(nn.Module):
             Rearrange('b c (h p1) (w p2) -> b (h w) (p1 p2 c)', p1 = patch_size, p2 = patch_size),
             nn.Linear(patch_dim, dim),
         )
-
-        self.pos_embedding = nn.Parameter(torch.randn(1, num_patches, dim))
-
-        self.transformer = Transformer(dim, depth, heads, dim_head, mlp_dim)
 
         self.mlp_head = nn.Sequential(
             nn.LayerNorm(dim),
@@ -283,20 +278,6 @@ class UNet(nn.Module):
     def forward(self, x, heatmap):
         x = torch.cat((x,heatmap),1)
         x = F.relu(self.rn(x))              # x = [b_size, 2048, 8, 8]
-
-        # '''~~~ 1: Condition + feature ==> transformer ~~~'''
-        # condition = self.fc(condition) #(b,dim)
-        # x = self.to_patch_embedding(x) #b num_patch dim
-        # b, n, _ = x.shape
-        # # print('condition size is',condition.size())
-        # # print('x size is',x.size())
-        # x = torch.mul(x, condition.unsqueeze(1))
-        # x += self.pos_embedding[:, :(n + 1)]
-        # x = self.transformer(x)
-        # x = rearrange(x, 'b (h w) d -> b d h w',h=4,w=4)
-        # x = self.tr_conv(x)
-        # # print('the size of x is',x.size())
-        # '''~~~ 1: ENDs ~~~'''
 
 
         '''~~~ 0: Decoder ~~~'''
