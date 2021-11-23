@@ -1,9 +1,5 @@
-# train.py
-#!/usr/bin/env	python3
 
-""" valuate network using pytorch
-    Junde Wu
-"""
+
 
 import os
 import sys
