@@ -1,6 +1,6 @@
 import argparse
 
-def parse_args():    
+def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('-net', type=str, required=True, help='net type')
     parser.add_argument('-baseline', type=str, default='unet', help='baseline net type')
@@ -20,10 +20,10 @@ def parse_args():
     parser.add_argument('-heads', type=int, default=16, help='heads number')
     parser.add_argument('-mlp_dim', type=int, default=1024, help='mlp_dim')
     parser.add_argument('-w', type=int, default=4, help='number of workers for dataloader')
-    parser.add_argument('-b', type=int, default=2, help='batch size for dataloader')
+    parser.add_argument('-b', type=int, default=16, help='batch size for dataloader')
     parser.add_argument('-s', type=bool, default=True, help='whether shuffle the dataset')
     parser.add_argument('-warm', type=int, default=1, help='warm up training phase')
-    parser.add_argument('-lr', type=float, default=3e-4, help='initial learning rate')
+    parser.add_argument('-lr', type=float, default=1e-4, help='initial learning rate')
     parser.add_argument('-imp_lr', type=float, default=3e-4, help='implicit learning rate')
     parser.add_argument('-weights', type=str, default = 0, help='the weights file you want to test')
     parser.add_argument('-base_weights', type=str, default = 0, help='the weights baseline')
@@ -33,7 +33,7 @@ def parse_args():
     type=str,
     default='../dataset',
     help='The path of segmentation data')
-    
+
     opt = parser.parse_args()
 
     return opt
