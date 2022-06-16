@@ -2,7 +2,7 @@
 
 This is a pytorch implementation of paper "Opinions Vary? Diagnosis First!". We propose a novel method to learn the diagnosis-first segmentation from the multiple labeled data. This method beats the popular majority vote by a large margin. 
 
-<img src="https://github.com/WuJunde/DiagnosisFirst/blob/master/diagsimacc.png" alt="text" width="200"/>
+<img src="https://github.com/WuJunde/DiagnosisFirst/blob/master/diagsimacc.png" alt="text" width="400"/>
 
 ## Preparation
 
