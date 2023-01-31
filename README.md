@@ -36,7 +36,7 @@ See cfg.py for more avaliable parameters
 
 ### Cite
 
-'''
+~~~
 @inproceedings{wu2022opinions,
   title={Opinions Vary? Diagnosis First!},
   author={Wu, Junde and Fang, Huihui and Yang, Dalu and Wang, Zhaowei and Zhou, Wenshuo and Shang, Fangxin and Yang, Yehui and Xu, Yanwu},
@@ -45,5 +45,15 @@ See cfg.py for more avaliable parameters
   year={2022},
   organization={Springer}
 }
-'''
+~~~
 
+and 
+
+~~~
+@article{wu2022calibrate,
+  title={Calibrate the inter-observer segmentation uncertainty via diagnosis-first principle},
+  author={Wu, Junde and Fang, Huihui and Xiong, Hoayi and Duan, Lixin and Tan, Mingkui and Yang, Weihua and Liu, Huiying and Xu, Yanwu},
+  journal={arXiv preprint arXiv:2208.03016},
+  year={2022}
+}
+~~~
