@@ -1,6 +1,6 @@
 # Diagnosis First Segmentation
 
-This is a pytorch implementation of paper "Opinions Vary? Diagnosis First!"(MICCAI 2022) and its extention "Calibrate the inter-observer segmentation uncertainty via diagnosis-first principle". We propose a novel method to learn the diagnosis-first segmentation from the multiple labeled data. This method beats the popular majority vote by a large margin. 
+This is a pytorch implementation of paper [Opinions Vary? Diagnosis First!](https://arxiv.org/abs/2202.06505) (MICCAI 2022) and its extention paper [Calibrate the inter-observer segmentation uncertainty via diagnosis-first principle](https://arxiv.org/abs/2208.03016). We propose a novel method to learn the diagnosis-first segmentation from the multiple labeled data. This method beats the popular majority vote by a large margin. 
 
 <img src="https://github.com/WuJunde/DiagnosisFirst/blob/master/diagsimacc.png" alt="text" width="400"/>
 
@@ -33,4 +33,17 @@ See cfg.py for more avaliable parameters
 - [ ] function name alignment
 - [ ] del trials
 - [ ] dataset preprocess tools
+
+### Cite
+
+'''
+@inproceedings{wu2022opinions,
+  title={Opinions Vary? Diagnosis First!},
+  author={Wu, Junde and Fang, Huihui and Yang, Dalu and Wang, Zhaowei and Zhou, Wenshuo and Shang, Fangxin and Yang, Yehui and Xu, Yanwu},
+  booktitle={Medical Image Computing and Computer Assisted Intervention--MICCAI 2022: 25th International Conference, Singapore, September 18--22, 2022, Proceedings, Part II},
+  pages={604--613},
+  year={2022},
+  organization={Springer}
+}
+'''
 
