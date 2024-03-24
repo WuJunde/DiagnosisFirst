@@ -15,7 +15,7 @@ python val.py -net 'your_backbone' -mod val_ad -exp_name generate_dfsim -weights
 
 #### Train Segmentation:
 
-python train.py -net transunet -mod seg -exp_name repro_seg -base_weights 'weights of diagnosis network'
+python train.py -net 'your_backbone' -mod seg -exp_name repro_seg -base_weights 'weights of diagnosis network'
 
 #### Segmentation Inference:
 
@@ -31,8 +31,8 @@ See cfg.py for more avaliable parameters
 - [x] del debug code
 - [x] cls validation
 - [ ] function name alignment
-- [ ] del trials
-- [ ] dataset preprocess tools
+- [x] del trials
+- [x] dataset preprocess tools
 
 ### Cite
 
